@@ -1,0 +1,27 @@
+# orb_slam3_settings_rgbd.yaml
+Camera.type: "RGBD"
+Camera.fps: 30.0
+Camera.width: 640
+Camera.height: 480
+
+# RGB intrinsics (rectified)
+# Sesuaikan nilai ini dengan hasil kalibrasi kamera
+Camera.fx: 615.0
+Camera.fy: 615.0
+Camera.cx: 320.0
+Camera.cy: 240.0
+
+# Depth parameters
+Depth.minDepth: 0.1
+Depth.maxDepth: 5.0   # indoor cukup 4-5 meter
+Depth.scale: 0.001    # jika depth in mm -> scale=0.001
+
+# ORB extractor
+ORBextractor.nFeatures: 1500
+ORBextractor.scaleFactor: 1.2
+ORBextractor.nLevels: 8
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+# Viewer & mapping
+Viewer.PointSize: 2
