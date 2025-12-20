@@ -99,8 +99,8 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description', 
             '-entity', 'elton', 
-            '-x', '-13.0',
-            '-y', '8.0',
+            '-x', '0.0',
+            '-y', '0.0',
             '-z', '0.0',
             '-Y', '1.57',
         ]
@@ -112,9 +112,10 @@ def generate_launch_description():
     )
     
     rviz_config_path = PathJoinSubstitution(
-        [FindPackageShare('robot_properties'), 'rviz', 'pointcloud.rviz']
+        [FindPackageShare('robot_properties'), 'rviz', 'robot_properties.rviz']
     )
     rviz_node = Node(
+        condition=IfCondition(LaunchConfiguration('gazebo_rviz')),
         package='rviz2',
         executable='rviz2',
         name='rviz2',
@@ -124,6 +125,11 @@ def generate_launch_description():
     )
     
     return LaunchDescription([
+        DeclareLaunchArgument(
+            name='gazebo_rviz', 
+            default_value='true',
+            description='Launch RViz alongside Gazebo'
+        ),
         DeclareLaunchArgument(
             name='world', 
             default_value=world_path,
@@ -135,7 +141,7 @@ def generate_launch_description():
             description='Use game pad controller'
         ),
         game_sim,
-        teleop_key,
+        # teleop_key,
         description_launch,
         twist_mux_launch,
         extended_kalman_filter,
