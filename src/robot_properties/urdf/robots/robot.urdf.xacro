@@ -8,6 +8,36 @@
   <xacro:include filename="$(find robot_properties)/urdf/sensors/laser.urdf.xacro" />
   <xacro:include filename="$(find robot_properties)/urdf/sensors/camera.urdf.xacro" />
   <xacro:include filename="$(find robot_properties)/urdf/controllers/omni_drive.urdf.xacro" />
+  <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro" />
+
+   <!-- initial position for simulations (Fake Hardware, Gazebo, Ignition) -->
+   <xacro:arg name="arm_initial_positions_file" default="$(find robot_properties)/config/arm_initial_positions.yaml"/>
+
+   <!-- convert to property to use substitution in function -->
+   <xacro:property name="arm_initial_positions_file" default="$(arg arm_initial_positions_file)"/>
+
+  <!-- UR arm mounted on mobile base -->
+  <xacro:if value="$(arg use_arm)">
+    <xacro:ur_robot
+      name="ur5"
+      tf_prefix="ur_"
+      parent="base_link"
+      joint_limits_parameters_file="$(find ur_description)/config/ur5/joint_limits.yaml"
+      kinematics_parameters_file="$(find ur_description)/config/ur5/default_kinematics.yaml"
+      physical_parameters_file="$(find ur_description)/config/ur5/physical_parameters.yaml"
+      visual_parameters_file="$(find ur_description)/config/ur5/visual_parameters.yaml"
+      transmission_hw_interface="hardware_interface/PositionJointInterface"
+      safety_limits="true"
+      safety_pos_margin="0.15"
+      safety_k_position="20"
+      sim_gazebo="true"
+      use_fake_hardware="true"
+      initial_positions="${xacro.load_yaml(arm_initial_positions_file)}"
+    >
+      <!-- Mounting pose on your robot -->
+      <origin xyz="-${base_width/2} 0 ${base_height/2}" rpy="0 0 0" />
+    </xacro:ur_robot>
+  </xacro:if>
 
   <xacro:base
     length="${base_length}"
@@ -62,19 +92,34 @@
   />
 
   <xacro:imu />
-
-  <xacro:laser
-    update_rate="10"
-    ray_count="360"
-    min_angle="3.14"
-    max_angle="-3.14"
-    min_range="0.08"
-    max_range="25.0"
-    frame_id="laser"
-    topic_name="scan"
-  >
-    <xacro:insert_block name="laser_pose" />
-  </xacro:laser>
+  <xacro:if value="$(arg use_arm)">
+    <xacro:laser
+      update_rate="10"
+      ray_count="360"
+      min_angle="1.5708"
+      max_angle="-1.5708"
+      min_range="0.08"
+      max_range="25.0"
+      frame_id="laser"
+      topic_name="scan"
+    >
+      <xacro:insert_block name="laser_pose" />
+    </xacro:laser>
+  </xacro:if>
+  <xacro:unless value="$(arg use_arm)">
+    <xacro:laser
+      update_rate="10"
+      ray_count="360"
+      min_angle="3.14"
+      max_angle="-3.14"
+      min_range="0.08"
+      max_range="25.0"
+      frame_id="laser"
+      topic_name="scan"
+    >
+      <xacro:insert_block name="laser_pose" />
+    </xacro:laser>
+  </xacro:unless>
 
   <xacro:depth_sensor>
     <xacro:insert_block name="depth_sensor_pose" />

@@ -67,9 +67,9 @@
             <qos>
               <topic name="/camera/depth/color/points">
                 <publisher>
-                  <reliability>best_effort</reliability>
+                  <reliability>reliable</reliability>
                 </publisher>
-              </topic>  
+              </topic>
             </qos>
           </ros>
           <min_depth>0.015</min_depth>
@@ -81,7 +81,7 @@
           <distortion_k3>0.00000001</distortion_k3>
           <distortion_t1>0.00000001</distortion_t1>
           <distortion_t2>0.00000001</distortion_t2>
-        </plugin> 
+        </plugin>
       </sensor>
 
     </gazebo>
