@@ -9,12 +9,16 @@
   <xacro:include filename="$(find robot_properties)/urdf/sensors/camera.urdf.xacro" />
   <xacro:include filename="$(find robot_properties)/urdf/controllers/omni_drive.urdf.xacro" />
   <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro" />
+  <!-- <xacro:include filename="$(find ur_description)/urdf/inc/ur_joint_control.xacro" /> -->
+  <!-- <xacro:include filename="$(find ur_description)/urdf/inc/ur_sensors.xacro" /> -->
 
-   <!-- initial position for simulations (Fake Hardware, Gazebo, Ignition) -->
-   <xacro:arg name="arm_initial_positions_file" default="$(find robot_properties)/config/arm_initial_positions.yaml"/>
+  <!-- initial position for simulations (Fake Hardware, Gazebo, Ignition) -->
+  <xacro:arg name="arm_initial_positions_file"
+    default="$(find robot_properties)/config/arm_initial_positions.yaml" />
 
-   <!-- convert to property to use substitution in function -->
-   <xacro:property name="arm_initial_positions_file" default="$(arg arm_initial_positions_file)"/>
+  <!-- convert to property to use substitution in function -->
+  <xacro:property name="arm_initial_positions_file"
+    default="$(arg arm_initial_positions_file)" />
 
   <!-- UR arm mounted on mobile base -->
   <xacro:if value="$(arg use_arm)">
@@ -26,12 +30,13 @@
       kinematics_parameters_file="$(find ur_description)/config/ur5/default_kinematics.yaml"
       physical_parameters_file="$(find ur_description)/config/ur5/physical_parameters.yaml"
       visual_parameters_file="$(find ur_description)/config/ur5/visual_parameters.yaml"
+      generate_ros2_control_tag="true"
       transmission_hw_interface="hardware_interface/PositionJointInterface"
+      use_fake_hardware="true"
       safety_limits="true"
       safety_pos_margin="0.15"
       safety_k_position="20"
       sim_gazebo="true"
-      use_fake_hardware="true"
       initial_positions="${xacro.load_yaml(arm_initial_positions_file)}"
     >
       <!-- Mounting pose on your robot -->

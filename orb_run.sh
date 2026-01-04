@@ -2,7 +2,13 @@
 
 # Launch camera node
 gnome-terminal --tab --title="RealSense Camera" -- bash -c "source install/setup.bash;
-                                 ros2 run realsense2_camera realsense2_camera_node;
+                                 ros2 run realsense2_camera realsense2_camera_node \
+  --ros-args \
+  -p enable_gyro:=true \
+  -p enable_accel:=true \
+  -p enable_sync:=true \
+  -p align_depth.enable:=true \
+  -p unite_imu_method:=2;
                                 echo Press any key to close;
                                 read -n 1"
 
