@@ -28,6 +28,11 @@ sudo apt install ros-humble-realsense2-camera
 
 install the ORB-SLAM3 using this link https://github.com/UZ-SLAMLab/ORB_SLAM3.git
 
+if the ORB_SLAM3 not detected add this into bashrc
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/ORB_SLAM3/lib
+```
+
 ## Install Pangolin
 
 install the Pangolin using this
