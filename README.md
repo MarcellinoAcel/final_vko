@@ -6,7 +6,7 @@ This tutorial explains how to set up **ORB-SLAM3** and build a ROS 2 project usi
 
 ## System Requirements
 
-- Ubuntu 20.04 / 22.04  
+- Ubuntu 22.04  
 - ROS 2 (Humble recommended)  
 - git, cmake, colcon  
 - OpenCV (>= 4.x)  
@@ -17,10 +17,21 @@ This tutorial explains how to set up **ORB-SLAM3** and build a ROS 2 project usi
 
 ---
 
-## Step 1: Clone and Build ORB-SLAM3
+## Step 1: Install ORB-SLAM3
 
-Clone the official ORB-SLAM3 repository:
+install the ORB-SLAM3 using this link https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+
+## Step 2: Install Pangolin
+
+install the Pangolin using this
 
 ```bash
 cd ~
-git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+git clone https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
+sudo make install
+```
+
