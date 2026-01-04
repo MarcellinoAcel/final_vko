@@ -54,3 +54,11 @@ cd final_vko
 source install/setup.bash
 colcon build
 ```
+
+## run the orb_slam
+```
+cd ~/final_vko
+```
+```
+./orb_run.sh
+```
