@@ -23,8 +23,4 @@
         <origin xyz="${base_width} 0 ${base_height/2}" rpy="0 0 0" />
     </xacro:property>
 
-    <xacro:arg name="use_arm" default="true" />
-    <!-- <xacro:arg name="initial_positions_file"
-        default="$(find ur_description)/config/initial_positions.yaml" /> -->
-
 </robot>

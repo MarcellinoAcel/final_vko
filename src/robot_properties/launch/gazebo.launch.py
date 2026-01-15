@@ -30,7 +30,7 @@ def generate_launch_description():
     )
 
     world_path = PathJoinSubstitution(
-        [FindPackageShare("robot_properties"), "worlds", "maze_bt.world"]
+        [FindPackageShare("robot_properties"), "worlds", "empty.world"]
     )
 
     description_launch_path = PathJoinSubstitution(
